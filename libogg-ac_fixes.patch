@@ -1,0 +1,50 @@
+diff -Nru ogg/configure.in ogg.new/configure.in
+--- ogg/configure.in	Sun Oct 22 04:56:12 2000
++++ ogg.new/configure.in	Tue Oct 31 23:57:28 2000
+@@ -15,46 +15,6 @@
+ AC_PROG_CC
+ AM_PROG_LIBTOOL
+ 
+-dnl Set some options based on environment
+-
+-if test -z "$GCC"; then
+-        case $host in 
+-        *-*-irix*)
+-                DEBUG="-g -signed" 
+-                CFLAGS="-O2 -w -signed"
+-                PROFILE="-p -g3 -O2 -signed"
+-		;;
+-        sparc-sun-solaris*)
+-                DEBUG="-v -g"
+-                CFLAGS="-xO4 -fast -w -fsimple -native -xcg92"
+-                PROFILE="-v -xpg -g -xO4 -fast -native -fsimple -xcg92 -Dsuncc"
+-		;;
+-        *)
+-                DEBUG="-g"
+-                CFLAGS="-O"
+-                PROFILE="-g -p" 
+-		;;
+-        esac
+-else
+-        case $host in 
+-        *-*-linux*)
+-                DEBUG="-g -Wall -fsigned-char"
+-                CFLAGS="-O20 -ffast-math -fsigned-char"
+-                PROFILE="-Wall -W -pg -g -O20 -ffast-math -fsigned-char"
+-		;;
+-        sparc-sun-*)
+-                DEBUG="-g -Wall -fsigned-char -mv8"
+-                CFLAGS="-O20 -ffast-math -fsigned-char -mv8"
+-                PROFILE="-pg -g -O20 -fsigned-char -mv8" 
+-		;;
+-        *)
+-                DEBUG="-g -Wall -fsigned-char"
+-                CFLAGS="-O20 -fsigned-char"
+-                PROFILE="-O20 -g -pg -fsigned-char" 
+-		;;
+-        esac
+-fi
+-
+ dnl Checks for programs.
+ 
+ dnl Checks for libraries.
