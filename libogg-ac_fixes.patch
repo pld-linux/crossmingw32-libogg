@@ -1,12 +1,10 @@
-diff -Nru ogg/configure.in ogg.new/configure.in
---- ogg/configure.in	Sun Oct 22 04:56:12 2000
-+++ ogg.new/configure.in	Tue Oct 31 23:57:28 2000
-@@ -15,46 +15,6 @@
- AC_PROG_CC
- AM_PROG_LIBTOOL
+diff -urN libogg-1.0beta4.org/configure.in libogg-1.0beta4/configure.in
+--- libogg-1.0beta4.org/configure.in	Sat Apr 28 23:33:09 2001
++++ libogg-1.0beta4/configure.in	Sat Apr 28 23:33:36 2001
+@@ -17,49 +17,6 @@
  
--dnl Set some options based on environment
--
+ dnl Set some options based on environment
+ 
 -if test -z "$GCC"; then
 -        case $host in 
 -        *-*-irix*)
@@ -36,6 +34,11 @@ diff -Nru ogg/configure.in ogg.new/configure.in
 -                DEBUG="-g -Wall -fsigned-char -mv8"
 -                CFLAGS="-O20 -ffast-math -fsigned-char -mv8"
 -                PROFILE="-pg -g -O20 -fsigned-char -mv8" 
+-		;;
+-	*-*-darwin*)
+-		DEBUG="-fno-common -g -Wall -fsigned-char"
+-		CFLAGS="-fno-common -O4 -Wall -fsigned-char -ffast-math"
+-		PROFILE="-fno-common -O4 -Wall -pg -g -fsigned-char -ffast-math"
 -		;;
 -        *)
 -                DEBUG="-g -Wall -fsigned-char"
