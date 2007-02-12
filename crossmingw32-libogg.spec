@@ -1,6 +1,6 @@
 %define		realname	libogg
 Summary:	Ogg Bitstream Library - Mingw32 cross version
-Summary(pl.UTF-8):   Biblioteka obsługi strumieni bitowych Ogg - wersja skrośna dla Mingw32
+Summary(pl.UTF-8):	Biblioteka obsługi strumieni bitowych Ogg - wersja skrośna dla Mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.1.3
 Release:	1
@@ -41,7 +41,7 @@ ze strumieni.
 
 %package dll
 Summary:	%{realname} - DLL library for Windows
-Summary(pl.UTF-8):   %{realname} - biblioteka DLL dla Windows
+Summary(pl.UTF-8):	%{realname} - biblioteka DLL dla Windows
 Group:		Applications/Emulators
 
 %description dll
