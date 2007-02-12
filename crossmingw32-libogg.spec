@@ -1,6 +1,6 @@
 %define		realname	libogg
 Summary:	Ogg Bitstream Library - Mingw32 cross version
-Summary(pl):	Biblioteka obs≥ugi strumieni bitowych Ogg - wersja skro∂na dla Mingw32
+Summary(pl.UTF-8):   Biblioteka obs≈Çugi strumieni bitowych Ogg - wersja skro≈õna dla Mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.1.3
 Release:	1
@@ -34,20 +34,20 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Libogg is a library for manipulating Ogg bitstreams. It handles both
 making Ogg bitstreams and getting packets from Ogg bitstreams.
 
-%description -l pl
-Libogg jest bibliotek± do manipulacji strumieniami bitowymi Ogg.
-Obs≥uguje ona zarÛwno tworzenie strumieni jak i uzyskiwanie pakietÛw
+%description -l pl.UTF-8
+Libogg jest bibliotekƒÖ do manipulacji strumieniami bitowymi Ogg.
+Obs≈Çuguje ona zar√≥wno tworzenie strumieni jak i uzyskiwanie pakiet√≥w
 ze strumieni.
 
 %package dll
 Summary:	%{realname} - DLL library for Windows
-Summary(pl):	%{realname} - biblioteka DLL dla Windows
+Summary(pl.UTF-8):   %{realname} - biblioteka DLL dla Windows
 Group:		Applications/Emulators
 
 %description dll
 %{realname} - DLL library for Windows.
 
-%description dll -l pl
+%description dll -l pl.UTF-8
 %{realname} - biblioteka DLL dla Windows.
 
 %prep
