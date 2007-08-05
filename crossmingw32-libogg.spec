@@ -5,7 +5,7 @@ Name:		crossmingw32-%{realname}
 Version:	1.1.3
 Release:	1
 License:	BSD
-Group:		Libraries
+Group:		Development/Libraries
 Source0:	http://downloads.xiph.org/releases/ogg/%{realname}-%{version}.tar.gz
 # Source0-md5:	eaf7dc6ebbff30975de7527a80831585
 Patch0:		%{realname}-ac_fixes.patch
