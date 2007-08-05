@@ -17,14 +17,16 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		no_install_post_strip	1
 
-%define		target		i386-mingw32
-%define		target_platform	i386-pc-mingw32
-%define		arch		%{_prefix}/%{target}
-%define		gccarch		%{_prefix}/lib/gcc-lib/%{target}
-%define		gcclib		%{_prefix}/lib/gcc-lib/%{target}/%{version}
+%define		target			i386-mingw32
+%define		target_platform		%{target}
+%define		arch			%{_prefix}/%{target}
 
-%define		__cc		%{target}-gcc
-%define		__cxx		%{target}-g++
+%define		_sysprefix		/usr
+%define		_prefix			%{_sysprefix}/%{target}
+%define		_pkgconfigdir		%{_prefix}/lib/pkgconfig
+%define		_dlldir			/usr/share/wine/windows/system
+%define		__cc			%{target}-gcc
+%define		__cxx			%{target}-g++
 
 %ifarch alpha sparc sparc64 sparcv9
 %define		optflags	-O2
@@ -34,87 +36,81 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Libogg is a library for manipulating Ogg bitstreams. It handles both
 making Ogg bitstreams and getting packets from Ogg bitstreams.
 
+This package contains the cross version for Win32.
+
 %description -l pl.UTF-8
 Libogg jest biblioteką do manipulacji strumieniami bitowymi Ogg.
 Obsługuje ona zarówno tworzenie strumieni jak i uzyskiwanie pakietów
 ze strumieni.
 
+Ten pakiet zawiera wersję skrośną dla Win32.
+
+%package static
+Summary:	Static libogg library (cross mingw32 version)
+Summary(pl.UTF-8):	Statyczna biblioteka libogg (wersja skrośna mingw32)
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description static
+Static libogg library (cross mingw32 version).
+
+%description static -l pl.UTF-8
+Statyczna biblioteka libogg (wersja skrośna mingw32).
+
 %package dll
-Summary:	%{realname} - DLL library for Windows
-Summary(pl.UTF-8):	%{realname} - biblioteka DLL dla Windows
+Summary:	DLL libogg library for Windows
+Summary(pl.UTF-8):	Biblioteka DLL libogg dla Windows
 Group:		Applications/Emulators
+Requires:	wine
 
 %description dll
-%{realname} - DLL library for Windows.
+DLL libogg library for Windows.
 
 %description dll -l pl.UTF-8
-%{realname} - biblioteka DLL dla Windows.
+Biblioteka DLL libogg dla Windows.
 
 %prep
 %setup -q -n %{realname}-%{version}
 %patch0 -p1
 
 %build
-CC=%{target}-gcc ; export CC
-CXX=%{target}-g++ ; export CXX
-LD=%{target}-ld ; export LD
-AR=%{target}-ar ; export AR
-AS=%{target}-as ; export AS
-CROSS_COMPILE=1 ; export CROSS_COMPILE
-CPPFLAGS="-I%{arch}/include" ; export CPPFLAGS
-RANLIB=%{target}-ranlib ; export RANLIB
-LDSHARED="%{target}-gcc -shared" ; export LDSHARED
-TARGET="%{target}" ; export TARGET
-
 %configure \
-	--host=%{_host} \
+	--host=%{target} \
 	--target=%{target}
 
-# autoshit badly wants -lc, which is unavailable, so let's make something
-# simpler
-
-for i in bitwise.c framing.c
-do
-	%{__cc} %{rpmcflags} -c src/$i -Iinclude
-done
-
-rm -f libogg.a
-$AR cru libogg.a *.o
-$RANLIB libogg.a
-
-%{__cc} --shared *.o -Wl,--enable-auto-image-base -o ogg.dll -Wl,--out-implib,libogg.dll.a
-
-%if 0%{!?debug:1}
-%{target}-strip *.dll
-%{target}-strip -g -R.comment -R.note *.a
-%endif
-
-sed -i	-e 's@libdir=/usr/lib@libdir=%{arch}/lib@' \
-	-e 's@includedir=/usr/include@includedir=%{arch}/include@' \
-	ogg.pc
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{arch}/{include/ogg,lib}
-install -d $RPM_BUILD_ROOT%{_datadir}/wine/windows/system
-install -d $RPM_BUILD_ROOT%{_pkgconfigdir}
 
-install include/ogg/*.h $RPM_BUILD_ROOT%{arch}/include/ogg
-install libogg.a $RPM_BUILD_ROOT%{arch}/lib
-install libogg.dll.a $RPM_BUILD_ROOT%{arch}/lib
-install ogg.dll $RPM_BUILD_ROOT%{_datadir}/wine/windows/system
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
-install ogg.pc $RPM_BUILD_ROOT%{_pkgconfigdir}/i386-mingw32-ogg.pc
+install -d $RPM_BUILD_ROOT%{_dlldir}
+mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
+
+%if 0%{!?debug:1}
+%{target}-strip --strip-unneeded -R.comment -R.note $RPM_BUILD_ROOT%{_dlldir}/*.dll
+%{target}-strip -g -R.comment -R.note $RPM_BUILD_ROOT%{_libdir}/*.a
+%endif
+
+rm -rf $RPM_BUILD_ROOT%{_datadir}/{aclocal,doc}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{arch}/include/ogg
-%{arch}/lib/*
-%{_pkgconfigdir}/*
+%doc AUTHORS CHANGES COPYING README
+%{_libdir}/libogg.dll.a
+%{_libdir}/libogg.la
+%{_includedir}/ogg
+%{_pkgconfigdir}/ogg.pc
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libogg.a
 
 %files dll
 %defattr(644,root,root,755)
-%{_datadir}/wine/windows/system/*
+%{_dlldir}/libogg-*.dll
