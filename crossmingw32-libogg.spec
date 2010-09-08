@@ -2,12 +2,12 @@
 Summary:	Ogg Bitstream Library - Mingw32 cross version
 Summary(pl.UTF-8):	Biblioteka obsługi strumieni bitowych Ogg - wersja skrośna dla Mingw32
 Name:		crossmingw32-%{realname}
-Version:	1.1.3
+Version:	1.2.0
 Release:	1
 License:	BSD
 Group:		Development/Libraries
 Source0:	http://downloads.xiph.org/releases/ogg/%{realname}-%{version}.tar.gz
-# Source0-md5:	eaf7dc6ebbff30975de7527a80831585
+# Source0-md5:	c95b73759acfc30712beef6ce4e88efa
 Patch0:		%{realname}-ac_fixes.patch
 URL:		http://www.xiph.org/ogg/
 BuildRequires:	crossmingw32-gcc
@@ -28,9 +28,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
 
-%ifarch alpha sparc sparc64 sparcv9
+%ifnarch %{ix86}
+# arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
 %define		optflags	-O2
 %endif
+# -z options are invalid for mingw linker
+%define		filterout_ld	-Wl,-z,.*
 
 %description
 Libogg is a library for manipulating Ogg bitstreams. It handles both
@@ -94,7 +97,7 @@ mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 %{target}-strip -g -R.comment -R.note $RPM_BUILD_ROOT%{_libdir}/*.a
 %endif
 
-rm -rf $RPM_BUILD_ROOT%{_datadir}/{aclocal,doc}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/{aclocal,doc}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
