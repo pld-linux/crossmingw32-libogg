@@ -1,6 +1,6 @@
 %define		realname	libogg
-Summary:	Ogg Bitstream Library - Mingw32 cross version
-Summary(pl.UTF-8):	Biblioteka obsługi strumieni bitowych Ogg - wersja skrośna dla Mingw32
+Summary:	Ogg Bitstream Library - MinGW32 cross version
+Summary(pl.UTF-8):	Biblioteka obsługi strumieni bitowych Ogg - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
 Version:	1.2.0
 Release:	1
@@ -49,16 +49,16 @@ ze strumieni.
 Ten pakiet zawiera wersję skrośną dla Win32.
 
 %package static
-Summary:	Static libogg library (cross mingw32 version)
-Summary(pl.UTF-8):	Statyczna biblioteka libogg (wersja skrośna mingw32)
+Summary:	Static libogg library (cross MinGW32 version)
+Summary(pl.UTF-8):	Statyczna biblioteka libogg (wersja skrośna MinGW32)
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description static
-Static libogg library (cross mingw32 version).
+Static libogg library (cross MinGW32 version).
 
 %description static -l pl.UTF-8
-Statyczna biblioteka libogg (wersja skrośna mingw32).
+Statyczna biblioteka libogg (wersja skrośna MinGW32).
 
 %package dll
 Summary:	DLL libogg library for Windows
