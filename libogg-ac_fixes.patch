@@ -1,18 +1,17 @@
-diff -urN libogg-1.0rc1.org/configure.in libogg-1.0rc1/configure.in
---- libogg-1.0rc1.org/configure.in	Wed Jun 27 12:09:19 2001
-+++ libogg-1.0rc1/configure.in	Wed Jun 27 12:10:17 2001
-@@ -41,8 +41,8 @@
+--- libogg-1.2.1/configure.in.orig	2010-11-01 21:13:42.000000000 +0100
++++ libogg-1.2.1/configure.in	2010-11-03 21:34:19.187102452 +0100
+@@ -46,8 +46,8 @@
          case $host in 
          *-*-linux*)
                  DEBUG="-g -Wall -fsigned-char"
--                CFLAGS="-O20 -ffast-math -fsigned-char"
+-                CFLAGS="-O20 -Wall -ffast-math -fsigned-char"
 -                PROFILE="-Wall -W -pg -g -O20 -ffast-math -fsigned-char"
-+                CFLAGS="$CFLAGS -ffast-math -fsigned-char"
++                CFLAGS="$CFLAGS -Wall -ffast-math -fsigned-char"
 +                PROFILE="$CFLAGS -Wall -W -pg -g -ffast-math -fsigned-char"
  		;;
          sparc-sun-*)
-                 DEBUG="-g -Wall -fsigned-char -mv8"
-@@ -56,8 +56,8 @@
+                 DEBUG="-g -Wall -fsigned-char"
+@@ -61,8 +61,8 @@
  		;;
          *)
                  DEBUG="-g -Wall -fsigned-char"
