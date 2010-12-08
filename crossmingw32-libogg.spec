@@ -2,12 +2,12 @@
 Summary:	Ogg Bitstream Library - MinGW32 cross version
 Summary(pl.UTF-8):	Biblioteka obsługi strumieni bitowych Ogg - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
-Version:	1.2.1
+Version:	1.2.2
 Release:	1
 License:	BSD
 Group:		Development/Libraries
 Source0:	http://downloads.xiph.org/releases/ogg/%{realname}-%{version}.tar.xz
-# Source0-md5:	4f0e6e0e1df91ccedcae2a475dc38e09
+# Source0-md5:	203c28a1d356b641253c960365e4cc48
 Patch0:		%{realname}-ac_fixes.patch
 URL:		http://www.xiph.org/ogg/
 BuildRequires:	autoconf
