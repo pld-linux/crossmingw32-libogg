@@ -2,15 +2,15 @@
 Summary:	Ogg Bitstream Library - MinGW32 cross version
 Summary(pl.UTF-8):	Biblioteka obsługi strumieni bitowych Ogg - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
-Version:	1.3.2
-Release:	2
+Version:	1.3.3
+Release:	1
 License:	BSD
 Group:		Development/Libraries
-Source0:	http://downloads.xiph.org/releases/ogg/%{realname}-%{version}.tar.xz
-# Source0-md5:	5c3a34309d8b98640827e5d0991a4015
+Source0:	https://downloads.xiph.org/releases/ogg/%{realname}-%{version}.tar.xz
+# Source0-md5:	87ed742047f065046eb6c36745d871b8
 Patch0:		%{realname}-ac_fixes.patch
 URL:		http://www.xiph.org/ogg/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.6
 BuildRequires:	crossmingw32-gcc
 BuildRequires:	crossmingw32-w32api
@@ -100,7 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_dlldir}
-mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
+%{__mv} $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 
 %if 0%{!?debug:1}
 %{target}-strip --strip-unneeded -R.comment -R.note $RPM_BUILD_ROOT%{_dlldir}/*.dll
@@ -114,7 +114,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS CHANGES COPYING README
+%doc AUTHORS CHANGES COPYING README.md
 %{_libdir}/libogg.dll.a
 %{_libdir}/libogg.la
 %{_includedir}/ogg
